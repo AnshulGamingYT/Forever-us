@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forever Us ✨</title>
+
+  <!-- Luxury Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #d4af37;
+      --rose: #ff6f91;
+      --dark: #0f0f14;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(180deg, #0f0f14, #1a1a25);
+      color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    /* PASSWORD LOCK */
+    #lockScreen {
+      position: fixed; inset: 0; background: radial-gradient(circle, #1a1a25, #0f0f14);
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+    }
+
+    .lock-box {
+      border: 1px solid rgba(212,175,55,0.3);
+      padding: 60px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(15px);
+      text-align: center;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+
+    .lock-box h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      margin-bottom: 15px;
+      color: var(--gold);
+    }
+
+    .lock-box input {
+      padding: 14px 22px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .lock-box button {
+      margin-top: 25px;
+      padding: 14px 38px;
+      border-radius: 40px;
+      border: none;
+      background: linear-gradient(135deg, var(--gold), #f7d774);
+      color: #000;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      max-width: 800px;
+      margin: 30px auto 0;
+      color: #ddd;
+    }
+
+    .counter {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      color: var(--rose);
+    }
+
+    section {
+      padding: 120px 10%;
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--gold);
+    }
+
+    section p {
+      text-align: center;
+      max-width: 900px;
+      margin: auto;
+      font-size: 1.15rem;
+      line-height: 2;
+      color: #ccc;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 80px;
+    }
+
+    .card {
+      padding: 40px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(212,175,55,0.15);
+      backdrop-filter: blur(12px);
+      font-size: 1.1rem;
+      line-height: 1.9;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    }
+
+    .typing {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      max-width: 900px;
+      margin: 60px auto 0;
+      text-align: center;
+      white-space: normal; /* allow wrapping */
+      overflow: visible; /* show full text */
+      border: none; /* remove cursor line */
+      animation: fadeInText 2.5s ease;
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink { 50% { border-color: transparent; } }
+
+    .proposal {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .proposal button {
+      padding: 20px 50px;
+      font-size: 1.3rem;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(135deg, var(--gold), #f7d774);
+      cursor: pointer;
+    }
+
+    #surprise {
+      display: none;
+      margin-top: 40px;
+      font-size: 1.5rem;
+      color: var(--rose);
+    }
+
+    footer {
+      padding: 80px 20px;
+      text-align: center;
+      background: #0a0a10;
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+    }
+
+    audio { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- LOCK -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <h1>Private & Eternal ✨</h1>
+    <p>Enter our secret</p>
+    <input type="password" id="password" placeholder="Only we know" />
+    <br>
+    <button onclick="unlock()">Enter</button>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+  <div>
+    <h1>Anshul & Neha</h1>
+    <p>A private universe built only for us — where love is timeless, elegant, and eternal.</p>
+    <div class="counter">Together for <span id="days"></span> days of pure love ✨</div>
+  </div>
+</header>
+
+<section>
+  <h2>Why You Are My Luxury</h2>
+  <p>Love isn’t loud. Love is rare, calm, and priceless — just like you.</p>
+
+  <div class="cards">
+    <div class="card">Your presence feels expensive — rare, calming, and impossible to replace.</div>
+    <div class="card">Loving you feels like owning something priceless that the world can’t buy.</div>
+    <div class="card">You are not an option. You are the standard.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Flirting Shayaris 💫</h2>
+  <div class="cards">
+    <div class="card">"- Teri tight pussy mein meri tongue ka savage lick, clit ko tease karte hue cum karwa doon,  
+  Phir cock se brutal fuck, tujhe scream karwate hue, yeh raat ka wildest cum-fest. 🔥💦"</div>
+    <div class="card">"- Tere andar fingers ghusa kar twist karoon, woh waves feel karte hue,  
+  Phir cock ka hard entry, tujhe pound karte hue, raat bhar na rukoon. 🔥"</div>
+    <div class="card">"- Tere throat mein deepthroat karwa loon, gagging sounds sunte hue cum swallow karwa doon,  
+  Phir reverse cowgirl mein ride kar, tera body bounce karte hue, yeh oral-anal ka dirty marathon. 💦."</div>
+  </div>
+</section>
+
+<section>
+  <h2>Something I’ve Never Said Aloud</h2>
+  <p style="margin-top:20px; font-size:1.2rem">
+    Kuch baatein hoti hain, <b>Neha</b>… jo main aksar keh nahi paata.
+    Isliye nahi kyunki main mehsoos nahi karta, balki isliye kyunki woh itni gehri hoti hain
+    ki lafz chhote pad jaate hain.
+  </p>
+  <div class="typing">
+    Agar kabhi duniya bhaari lage, agar kabhi tum thak jao ya khud par doubt aaye —
+    bas itna yaad rakhna: tum kabhi akeli nahi ho.
+    Main tumhe har khamoshi mein chunta hoon, har mushkil mein, har doori mein,
+    aur har "forever" mein.
+  </div>
+  <p style="margin-top:40px; text-align:center; font-size:1.15rem; color:#ccc">
+    Aur jin dinon tum khud apni value nahi dekh paati… un dinon bhi main usey poori shiddat se dekhta hoon.
+    Hamesha.
+  </p>
+</section>
+
+<section>
+  <div class="proposal">
+    <h2>Neha, kya tum apni Fudi dogi?</h2>
+    <button onclick="sayYes()">YES ✨</button>
+    <button onclick="sayNo()" style="margin-left:20px; background:transparent; color:#aaa; border:1px solid rgba(212,175,55,0.4); padding:18px 40px; font-size:1.1rem; border-radius:50px; cursor:pointer;">NO 🙈</button>
+    <div id="surprise">You chose me — and I promise to choose you in every lifetime.</div>
+  </div>
+</section>
+
+<footer>
+  Forever is not a promise. It is a decision — and I choose you.
+</footer>
+
+<script>
+  const PASSWORD = "love";
+  const START_DATE = new Date("2025-03-25");
+
+  function unlock() {
+    if (document.getElementById('password').value === PASSWORD) {
+      document.getElementById('lockScreen').style.display = 'none';
+    } else { alert('Wrong password'); }
+  }
+
+function recordResponse(answer) {
+const time = new Date().toLocaleString();
+
+
+// 🔔 SEND YOU A REAL NOTIFICATION (Email via Formspree)
+// 1️⃣ Create a free Formspree endpoint
+// 2️⃣ Replace YOUR_FORM_ID below
+fetch('https://formspree.io/f/xanrrrjd', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+response: answer,
+time: time,
+message: `She pressed ${answer} 💖 at ${time}`
+})
+});
+
+
+// Local backup
+localStorage.setItem('proposalAnswer', answer);
+localStorage.setItem('proposalTime', time);
+}
+
+
+function sayYes() {
+recordResponse('YES');
+document.getElementById('surprise').style.display = 'block';
+}
+
+
+function sayNo() {
+recordResponse('NO');
+alert("Nice try 😌 But you don't really mean that.");
+}
+
+  const days = Math.floor((new Date() - START_DATE) / (1000*60*60*24));
+  document.getElementById('days').innerText = days;
+</script>
+
+<style>
+@keyframes fall { to { transform: translateY(110vh); } }
+</style>
+
+</body>
+</html>
