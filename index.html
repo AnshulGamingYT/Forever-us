@@ -205,11 +205,6 @@
   </div>
 </div>
 
-<!-- MUSIC -->
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
-</audio>
-
 <header>
   <div>
     <h1>Anshul & Neha</h1>
@@ -268,6 +263,25 @@
     <div id="surprise">You chose me — and I promise to choose you in every lifetime.</div>
   </div>
 </section>
+  <section id="afterAnswer" style="display:none; animation: fadeInText 2s ease">
+<h2>A Moment That Feels Like Us 💖</h2>
+<p>
+Yeh sirf ek reel nahi hai — yeh woh ehsaas hai jo mujhe har baar
+tumhari yaad dilata hai.
+</p>
+<div style="display:flex; justify-content:center; margin-top:60px; gap:40px; flex-wrap:wrap">
+<iframe
+src="https://www.instagram.com/reel/DNelfiFzW9j/embed"
+width="360"
+height="450"
+frameborder="0"
+scrolling="no"
+allowtransparency="true"
+allow="encrypted-media"
+style="border-radius:24px; box-shadow:0 30px 60px rgba(0,0,0,0.6)">
+</iframe>
+</div>
+</section>
 
 <footer>
   Forever is not a promise. It is a decision — and I choose you.
@@ -310,6 +324,8 @@ localStorage.setItem('proposalTime', time);
 function sayYes() {
 recordResponse('YES');
 document.getElementById('surprise').style.display = 'block';
+document.getElementById('afterAnswer').style.display = 'block';
+document.getElementById('afterAnswer').scrollIntoView({ behavior: 'smooth' });
 }
 
 
@@ -328,3 +344,4 @@ alert("Nice try 😌 But you don't really mean that.");
 
 </body>
 </html>
+
